@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "./Modal.js";
+
 import "./Form.css";
 const Form = (props) => {
   const [enteredName, setEnteredName] = useState("");
