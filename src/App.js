@@ -1,40 +1,22 @@
-import './App.css';
-import Center from './components/Center';
+import React, { useState } from "react";
+import "./App.css";
+import Center from "./components/Center";
 
-const data = [
-{
-  id:"e1",
-  name:"gautam",
-  Age:"22",
-},
-{
-  id:"e2",
-  name:"gautam2",
-  Age:"23",
-},
-{
-  id:"e3",
-  name:"gautam3",
-  Age:"26",
-},
-{
-  id:"e4",
-  name:"gautam4",
-  Age:"24",
-},
-{
-  id:"e5",
-  name:"gautam5",
-  Age:"25",
-},
+const DUMMY_DATA = [
+
 ];
 function App() {
-
+  const [data, setData] = useState(DUMMY_DATA);
+  const formData = (enteredData) => {
+    setData((prevData) => {
+      return [enteredData, ...prevData];
+    });
+  };
   return (
     <div className="background">
-   <Center items={data} />
+      <Center enteredFormData={formData} items={data} />
     </div>
-      );
+  );
 }
 
 export default App;
