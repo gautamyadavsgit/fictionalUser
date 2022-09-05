@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
+import Modal from "./Modal";
 import "./Form.css";
 const Form = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+  const [error, setError] = useState();
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -14,9 +16,21 @@ const Form = (props) => {
   const submitFormHandler = (event) => {
     event.preventDefault();
 
-    if(enteredAge == '' || enteredName == '' ){
-       return;
+    if(enteredAge === '' || enteredName === '' ){
+      setError({
+        title:'Invalid Input',
+        message:'Please Enter a valid name and age'  
+        });  
+      return;       
+        
     }
+    if(enteredAge < 0){
+      setError({
+        title:'Invalid Age',
+        message:'Please Enter a valid age'  
+        });
+      return;       
+  }
 
     const formData = {
       name: enteredName,
@@ -28,7 +42,13 @@ const Form = (props) => {
     setEnteredName("");
   };
 
+  const errorHandler = () => {
+    setError(null);
+  }
+
   return (
+    <div>
+     {error && <Modal title={error.title} message={error.message} onConfirm={errorHandler}></Modal> }
     <form onSubmit={submitFormHandler}>
       <label>Name</label>
       <input
@@ -48,6 +68,7 @@ const Form = (props) => {
 
       <input type="submit" value="Submit" />
     </form>
+    </div>
   );
 };
 export default Form;
